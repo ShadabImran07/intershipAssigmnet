@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import asyncHandler from "express-async-handler";
 import Catalog from "../models/Catalog.js";
 import Product from "../models/Product.js";
+import Order from "../models/Order.js";
 
 const createCatalog = async (req, res, next) => {
 	try {
@@ -45,4 +47,12 @@ const createCatalog = async (req, res, next) => {
 	}
 };
 
-export { createCatalog };
+// Create an API endpoint to get the list of orders received by a seller
+const getOrdersForSeller = async (req, res) => {
+	// Query the Order model to find orders with the given sellerId
+	const orders = await Order.find({ catalog: req.user._id });
+
+	res.status(200).json(orders);
+};
+
+export { createCatalog, getOrdersForSeller };
