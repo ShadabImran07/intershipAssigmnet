@@ -3,7 +3,7 @@ import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 
 // @desc    Auth user & get token
-// @route   POST /api/users/auth
+// @route   POST /api/auth/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
@@ -80,6 +80,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 			_id: user._id,
 			name: user.name,
 			email: user.email,
+			userType: user.userType,
 		});
 	} else {
 		res.status(404);
